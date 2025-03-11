@@ -25,15 +25,20 @@
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
+        /* Modificación para que la calculadora se muestre en hasta 3 columnas */
         .calculator {
             background: #d4e157;
             padding: 10px;
             border-radius: 10px;
             width: 100%;
             text-align: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Máximo 3 columnas */
+            gap: 5px;
         }
+
         .calculator button {
-            width: 30%;
+            width: 100%;
             padding: 15px;
             background-color: #ff7043;
             color: white;
