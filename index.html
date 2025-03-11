@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Ventas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            justify-content: space-between;
+        }
+        .section {
+            border: 2px solid #444;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 12%;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .section2 {
+            border: 2px solid #444;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 45%;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .section3 {
+            border: 2px solid #444;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 43%;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .calculator {
+            background: #d4e157;
+            padding: 10px;
+            border-radius: 10px;
+            width: 100%;
+            text-align: center;
+        }
+        .calculator button {
+            width: 30%;
+            padding: 15px;
+            background-color: #ff7043;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .product-button {
+            /*width: 100%;
+            padding: 15px;
+            background-color: #29b6f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 5px;*/
+            width: 150px; /* Ajusta según necesidad */
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            border: none;
+            font-weight: bold;
+            color: black;
+            text-shadow: 1px 1px 3px black;
+            display: flex;
+            align-items: end;
+            justify-content: center;
+            padding-bottom: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .product-button.selected {
+            background-color: #1565c0;
+        }
+        .papa-canchan { background-image: url('papa_canchan.jpg'); }
+        .papa-yungay { background-image: url('papa_yungay.jpg'); }
+        .papa-amarilla { background-image: url('papa_amarilla.jpg'); }
+        .totalizer {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #43a047;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #ffcc80;
+            padding: 10px;
+            margin: 5px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .remove-btn {
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #preview {
+            min-height: 200px;
+        }
+		#calc-display {
+            width: 100%;
+            padding: 10px;
+            font-size: 18px;
+            text-align: right;
+        }
+		#client-name {
+            width: 90%;
+            padding: 10px;
+            font-size: 28px;
+            text-align: left;
+        }
+
+    
+        .preview-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .product-card {
+            background: #ffe0b2;
+            border-radius: 10px;
+            padding: 10px;
+            width: 200px;
+            text-align: center;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 5px;
+        }
+
+        .product-card h4 {
+            margin: 5px 0;
+            font-size: 16px;
+        }
+
+        .product-card p {
+            margin: 2px 0;
+            font-size: 14px;
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center; background-color:#ffcc80; padding: 10px; margin:0;">Registro de Ventas</h2>
+    <div class="container">
+        <div class="section">
+            <h3>Productos</h3>
+            <button class="product-button papa-canchan" onclick="selectProduct(this, 'PAPA CANCHAN')">PAPA CANCHAN</button>
+            <button class="product-button papa-yungay" onclick="selectProduct(this, 'PAPA YUNGAY')">PAPA YUNGAY</button>
+            <button class="product-button papa-amarilla" onclick="selectProduct(this, 'PAPA AMARILLA')">PAPA AMARILLA</button>
+        </div>
+        
+        <div class="section2">
+            <h3>Registro</h3>
+            <p>Ingrese los pesos de los sacos y el precio:</p>
+            <input type="text" id="calc-display" readonly>
+            <div class="calculator">
+                <button onclick="appendNumber('7')">7</button>
+                <button onclick="appendNumber('8')">8</button>
+                <button onclick="appendNumber('9')">9</button>
+                <button onclick="appendNumber('4')">4</button>
+                <button onclick="appendNumber('5')">5</button>
+                <button onclick="appendNumber('6')">6</button>
+                <button onclick="appendNumber('1')">1</button>
+                <button onclick="appendNumber('2')">2</button>
+                <button onclick="appendNumber('3')">3</button>
+                <button onclick="appendNumber('0')">0</button>
+                <button onclick="appendNumber('.')">.</button>
+                <button onclick="clearCalculator()">C</button>
+                <button onclick="addWeight()">Agregar Peso</button>
+                <button onclick="addPrice()">Agregar Precio</button>
+            </div>
+            <ul id="weight-list"></ul>
+            <p class="totalizer">Total Peso: <span id="total-weight">0</span> kg</p>
+            <p class="totalizer">Cantidad sacos: <span id="total-sacks">0</span></p>
+            <p class="totalizer">Precio: <span id="display-price">0</span></p>
+            <p class="totalizer">Subtotal: <span id="subtotal">0</span></p>
+            <button onclick="confirmSelection()">CONFIRMAR</button>
+        </div>
+
+        <div class="section3">
+            <h3>Previsualización</h3>
+            <p>Nombre Cliente:</p>
+            <input type="text" id="client-name" placeholder="Buscar cliente...">
+            <div class="preview-container" id="preview-list"></div>
+        </div>
+    </div>
+	
+	<script>
+        let productClickCount = {};
+        let weights = [];
+        let selectedProduct = "";
+        let price = 0;
+		
+		function clearCalculator() {
+            document.getElementById("calc-display").value = "";
+        }
+
+        function selectProduct(button, productName) {
+            document.querySelectorAll('.product-button').forEach(btn => {
+                let originalName = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                btn.textContent = `${originalName}`;
+            });
+            
+            if (!productClickCount[productName]) {
+                productClickCount[productName] = 0;
+            }
+            
+            productClickCount[productName] = (productClickCount[productName] % 3) + 1;
+            let quality = ["I", "II", "III"][productClickCount[productName] - 1];
+            
+			
+            selectedProduct = `${productName} - Calidad ${quality}`;
+            button.textContent = selectedProduct;
+            button.dataset.quality = quality;
+        }
+
+        function appendNumber(num) {
+            document.getElementById("calc-display").value += num;
+        }
+
+        function addWeight() {
+            let value = parseFloat(document.getElementById("calc-display").value);
+            if (!isNaN(value)) {
+                weights.push(value);
+                updateWeightList();
+            }
+            document.getElementById("calc-display").value = "";
+        }
+
+        function addPrice() {
+            price = parseFloat(document.getElementById("calc-display").value);
+            document.getElementById("display-price").innerText = price;
+            updateTotals();
+            document.getElementById("calc-display").value = "";
+        }
+
+        function updateTotals() {
+            let totalWeight = weights.reduce((a, b) => a + b, 0);
+            document.getElementById("total-weight").innerText = totalWeight;
+            document.getElementById("total-sacks").innerText = weights.length;
+            document.getElementById("subtotal").innerText = (totalWeight * price).toFixed(2);
+        }
+
+        function updateWeightList() {
+            let weightList = document.getElementById("weight-list");
+            weightList.innerHTML = "";
+            weights.forEach((weight, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `${weight} kg <button class='remove-btn' onclick='removeWeight(${index})'>X</button>`;
+                weightList.appendChild(li);
+            });
+            document.getElementById("total-weight").innerText = weights.reduce((a, b) => a + b, 0);
+            document.getElementById("total-sacks").innerText = weights.length;
+        }
+
+        function removeWeight(index) {
+            weights.splice(index, 1);
+            updateWeightList();
+        }
+		/*
+		function confirmSelection() {
+			let totalWeight = document.getElementById("total-weight").innerText;
+			let totalSacks = document.getElementById("total-sacks").innerText;
+			let subtotal = document.getElementById("subtotal").innerText;
+			let previewList = document.getElementById("preview-list");
+			
+			if (!selectedProduct || totalWeight == "0" || totalSacks == "0" || price == 0) {
+				alert("Debe ingresar un producto, peso y precio antes de confirmar.");
+				return;
+			}
+
+			let li = document.createElement("li");
+			li.innerHTML = `${selectedProduct} | ${totalWeight} kg | ${totalSacks} sacos | ${price} | ${subtotal} 
+				<button class='delete-btn' onclick='this.parentElement.remove()'>X</button>`;
+			previewList.appendChild(li);
+
+			// Limpiar totalizadores
+			weights = [];
+			price = 0;
+			document.getElementById("total-weight").innerText = "0";
+			document.getElementById("total-sacks").innerText = "0";
+			document.getElementById("subtotal").innerText = "0";
+			document.getElementById("display-price").innerText = "0";
+			document.getElementById("calc-display").value = "";
+
+			// Eliminar la lista de pesos
+			let weightList = document.getElementById("weight-list");
+			if (weightList) weightList.innerHTML = "";
+		}
+        */
+        let productImages = {
+            "PAPA CANCHAN": "papa_canchan.jpg",
+            "PAPA YUNGAY": "papa_yungay.jpg",
+            "PAPA AMARILLA": "papa_amarilla.jpg"
+        };
+
+        function confirmSelection() {
+            let totalWeight = document.getElementById("total-weight").innerText;
+            let totalSacks = document.getElementById("total-sacks").innerText;
+            let subtotal = document.getElementById("subtotal").innerText;
+            let previewList = document.getElementById("preview-list");
+
+            if (!selectedProduct || totalWeight == "0" || totalSacks == "0" || price == 0) {
+                alert("Debe ingresar un producto, peso y precio antes de confirmar.");
+                return;
+            }
+
+            let imgSrc = productImages[selectedProduct.split(" - ")[0]] || "default.jpg";
+
+            let card = document.createElement("div");
+            card.classList.add("product-card");
+            card.innerHTML = `
+                <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
+                <img src="${imgSrc}" alt="${selectedProduct}">
+                <h4>${selectedProduct}</h4>
+                <p><strong>Peso:</strong> ${totalWeight} kg</p>
+                <p><strong>Sacos:</strong> ${totalSacks}</p>
+                <p><strong>Precio:</strong> S/ ${price}</p>
+                <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
+            `;
+
+            previewList.appendChild(card);
+
+            // Limpiar totalizadores
+            weights = [];
+            price = 0;
+            document.getElementById("total-weight").innerText = "0";
+            document.getElementById("total-sacks").innerText = "0";
+            document.getElementById("subtotal").innerText = "0";
+            document.getElementById("display-price").innerText = "0";
+            document.getElementById("calc-display").value = "";
+
+            let weightList = document.getElementById("weight-list");
+            if (weightList) weightList.innerHTML = "";
+        }
+    </script>
+</body>
+</html>
