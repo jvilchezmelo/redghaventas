@@ -18,13 +18,38 @@
             padding: 20px;
             justify-content: space-between;
         }
-        section, .section2, .section3 {
+        .section {
             border: 2px solid #444;
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
+		
+		.tabs {
+            display: flex;
+            border-bottom: 2px solid #444;
+            margin-bottom: 10px;
+        }
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #ddd;
+            border: 1px solid #444;
+            border-bottom: none;
+            margin-right: 5px;
+        }
+        .tab.active {
+            background: #fff;
+            font-weight: bold;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+		
         /* Modificación para que la calculadora se muestre en hasta 3 columnas */
         .calculator {
             background: #d4e157;
@@ -48,10 +73,10 @@
             margin: 5px;
             cursor: pointer;
         }
-	/* Modificación para que los productos se organicen en columnas de 2 en dispositivos grandes */
+		/* Modificación para que los productos se organicen en columnas de 2 en dispositivos grandes */
         .product-container {
             display: grid;
-	    grid-template-columns: 1fr; /* En pantallas pequeñas, una sola columna */
+			grid-template-columns: 1fr; /* En pantallas pequeñas, una sola columna */
             gap: 10px;
             justify-content: center;
         }
@@ -114,10 +139,11 @@
         #preview {
             min-height: 200px;
         }
-		#calc-display {
-            width: 100%;
+		#calc-display, #calc-display2 {
+            width: 99%;
             padding: 10px;
-            font-size: 18px;
+            font-size: 32px;
+            font-weight: bold;
             text-align: right;
         }
 		#client-name {
@@ -177,7 +203,7 @@
             border-radius: 50%;
         }
 		
-	/* Responsive Design */
+		/* Responsive Design */
         @media (max-width: 1024px) {
             .container {
                 flex-direction: column;
@@ -187,7 +213,7 @@
                 width: 90%;
                 margin-bottom: 10px;
             }
-	    .product-container {
+			.product-container {
                 grid-template-columns: repeat(3, 1fr); /* En tablets, dos columnas */
             }
         }
@@ -205,41 +231,73 @@
         <div class="section">
             <h3>Productos</h3>
             <div class="product-container">
-		<button class="product-button papa-canchan" onclick="selectProduct(this, 'PAPA CANCHAN')">PAPA CANCHAN</button>
-		<button class="product-button papa-yungay" onclick="selectProduct(this, 'PAPA YUNGAY')">PAPA YUNGAY</button>
-		<button class="product-button papa-amarilla" onclick="selectProduct(this, 'PAPA AMARILLA')">PAPA AMARILLA</button>
-	    </div>
+				<button class="product-button papa-canchan" onclick="selectProduct(this, 'PAPA CANCHAN')">PAPA CANCHAN</button>
+				<button class="product-button papa-yungay" onclick="selectProduct(this, 'PAPA YUNGAY')">PAPA YUNGAY</button>
+				<button class="product-button papa-amarilla" onclick="selectProduct(this, 'PAPA AMARILLA')">PAPA AMARILLA</button>
+			</div>
         </div>
         
-        <div class="section2">
+        <div class="section">
             <h3>Registro</h3>
-            <p>Ingrese los pesos de los sacos y el precio:</p>
-            <input type="text" id="calc-display" readonly>
-            <div class="calculator">
-                <button onclick="appendNumber('7')">7</button>
-                <button onclick="appendNumber('8')">8</button>
-                <button onclick="appendNumber('9')">9</button>
-                <button onclick="appendNumber('4')">4</button>
-                <button onclick="appendNumber('5')">5</button>
-                <button onclick="appendNumber('6')">6</button>
-                <button onclick="appendNumber('1')">1</button>
-                <button onclick="appendNumber('2')">2</button>
-                <button onclick="appendNumber('3')">3</button>
-                <button onclick="appendNumber('0')">0</button>
-                <button onclick="appendNumber('.')">.</button>
-                <button onclick="clearCalculator()">C</button>
-                <button onclick="addWeight()">Agregar Peso</button>
-                <button onclick="addPrice()">Agregar Precio</button>
+			<div class="tabs">
+                <div class="tab active" onclick="switchTab('peso')">Peso</div>
+                <div class="tab" onclick="switchTab('total')">Sacos</div>
             </div>
-            <ul id="weight-list"></ul>
-            <p class="totalizer">Total Peso: <span id="total-weight">0</span> kg</p>
-            <p class="totalizer">Cantidad sacos: <span id="total-sacks">0</span></p>
-            <p class="totalizer">Precio: <span id="display-price">0</span></p>
-            <p class="totalizer">Subtotal: <span id="subtotal">0</span></p>
-            <button onclick="confirmSelection()">CONFIRMAR</button>
+			<div id="peso" class="tab-content active">
+				<p>Ingrese los pesos de los sacos y el precio:</p>
+				<input type="text" id="calc-display" readonly>
+				<div class="calculator">
+					<button onclick="appendNumber('7')">7</button>
+					<button onclick="appendNumber('8')">8</button>
+					<button onclick="appendNumber('9')">9</button>
+					<button onclick="appendNumber('4')">4</button>
+					<button onclick="appendNumber('5')">5</button>
+					<button onclick="appendNumber('6')">6</button>
+					<button onclick="appendNumber('1')">1</button>
+					<button onclick="appendNumber('2')">2</button>
+					<button onclick="appendNumber('3')">3</button>
+					<button onclick="appendNumber('0')">0</button>
+					<button onclick="appendNumber('.')">.</button>
+					<button onclick="clearCalculator()">C</button>
+					<button onclick="addWeight()">Agregar Peso</button>
+					<button onclick="addPrice()">Agregar Precio</button>
+				</div>
+				<ul id="weight-list"></ul>
+				<p class="totalizer">Cantidad sacos: <span id="total-sacks">0</span></p>
+				<p class="totalizer">Total Peso: <span id="total-weight">0</span> kg</p>
+				<p class="totalizer">Precio: <span id="display-price">0</span></p>
+				<p class="totalizer">Subtotal: <span id="subtotal">0</span></p>
+				<button onclick="confirmSelection()">CONFIRMAR</button>
+			</div>
+			<div id="total" class="tab-content">
+				<p>Ingrese los pesos de los sacos y el precio:</p>
+				<input type="text" id="calc-display2" readonly>
+				<div class="calculator">
+					<button onclick="appendNumber2('7')">7</button>
+					<button onclick="appendNumber2('8')">8</button>
+					<button onclick="appendNumber2('9')">9</button>
+					<button onclick="appendNumber2('4')">4</button>
+					<button onclick="appendNumber2('5')">5</button>
+					<button onclick="appendNumber2('6')">6</button>
+					<button onclick="appendNumber2('1')">1</button>
+					<button onclick="appendNumber2('2')">2</button>
+					<button onclick="appendNumber2('3')">3</button>
+					<button onclick="appendNumber2('0')">0</button>
+					<button onclick="appendNumber2('.')">.</button>
+					<button onclick="clearCalculator2()">C</button>
+					<button onclick="addQuantity()">Agregar Cantidad</button>
+					<button onclick="addWeight2()">Agregar Peso</button>
+					<button onclick="addPrice2()">Agregar Precio</button>
+				</div>
+				<p class="totalizer">Cantidad sacos: <span id="total-sacks2">0</span></p>
+				<p class="totalizer">Total Peso: <span id="total-weight2">0</span> kg</p>
+				<p class="totalizer">Precio: <span id="display-price2">0</span></p>
+				<p class="totalizer">Subtotal: <span id="subtotal2">0</span></p>
+				<button onclick="confirmSelection2()">CONFIRMAR</button>
+			</div>
         </div>
 
-        <div class="section3">
+        <div class="section">
             <h3>Previsualización</h3>
             <p>Nombre Cliente:</p>
             <input type="text" id="client-name" placeholder="Buscar cliente...">
@@ -250,11 +308,29 @@
 	<script>
         let productClickCount = {};
         let weights = [];
+        let weights2 = [];
         let selectedProduct = "";
         let price = 0;
 		
+        let productImages = {
+            "PAPA CANCHAN": "papa_canchan.jpg",
+            "PAPA YUNGAY": "papa_yungay.jpg",
+            "PAPA AMARILLA": "papa_amarilla.jpg"
+        };
+		
+		function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.getElementById(tabName).classList.add('active');
+        }
+		
 		function clearCalculator() {
             document.getElementById("calc-display").value = "";
+        }
+		
+		function clearCalculator2() {
+            document.getElementById("calc-display2").value = "";
         }
 
         function selectProduct(button, productName) {
@@ -278,6 +354,10 @@
 
         function appendNumber(num) {
             document.getElementById("calc-display").value += num;
+        }
+
+        function appendNumber2(num) {
+            document.getElementById("calc-display2").value += num;
         }
 
         function addWeight() {
@@ -319,12 +399,6 @@
             weights.splice(index, 1);
             updateWeightList();
         }
-		
-        let productImages = {
-            "PAPA CANCHAN": "papa_canchan.jpg",
-            "PAPA YUNGAY": "papa_yungay.jpg",
-            "PAPA AMARILLA": "papa_amarilla.jpg"
-        };
 
         function confirmSelection() {
             let totalWeight = document.getElementById("total-weight").innerText;
@@ -345,8 +419,8 @@
                 <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
                 <img src="${imgSrc}" alt="${selectedProduct}">
                 <h4>${selectedProduct}</h4>
-                <p><strong>Peso:</strong> ${totalWeight} kg</p>
                 <p><strong>Sacos:</strong> ${totalSacks}</p>
+                <p><strong>Peso:</strong> ${totalWeight} kg</p>
                 <p><strong>Precio:</strong> S/ ${price}</p>
                 <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
             `;
@@ -365,6 +439,80 @@
             let weightList = document.getElementById("weight-list");
             if (weightList) weightList.innerHTML = "";
         }
+		
+		/**************************/
+
+        function addQuantity() {
+            let value = parseInt(document.getElementById("calc-display2").value);
+            if (!isNaN(value)) {
+                document.getElementById("total-sacks2").innerText = value;
+            }
+            document.getElementById("calc-display2").value = "";
+        }
+
+        function addWeight2() {
+            let value = parseFloat(document.getElementById("calc-display2").value);
+            if (!isNaN(value)) {
+                document.getElementById("total-weight2").innerText = value;
+            }
+            document.getElementById("calc-display2").value = "";
+        }
+
+        function addPrice2() {
+            let value = parseFloat(document.getElementById("calc-display2").value);
+			if (!isNaN(value)) {
+				document.getElementById("display-price2").innerText = value;
+            }
+            updateTotals2();
+            document.getElementById("calc-display2").value = "";
+        }
+
+        function updateTotals2() {			
+			let totalWeight = document.getElementById("total-weight2").innerText;
+			let price = document.getElementById("display-price2").innerText;			
+            document.getElementById("subtotal2").innerText = (totalWeight * price).toFixed(2);
+        }
+
+        function confirmSelection2() {
+            let totalWeight = document.getElementById("total-weight2").innerText;
+            let totalSacks = document.getElementById("total-sacks2").innerText;
+			let price = document.getElementById("display-price2").innerText;	
+            let subtotal = document.getElementById("subtotal2").innerText;
+            let previewList = document.getElementById("preview-list");
+
+            if (!selectedProduct || totalWeight == "0" || totalSacks == "0" || price == 0) {
+                alert("Debe ingresar un producto, peso y precio antes de confirmar.");
+                return;
+            }
+
+            let imgSrc = productImages[selectedProduct.split(" - ")[0]] || "default.jpg";
+
+            let card = document.createElement("div");
+            card.classList.add("product-card");
+            card.innerHTML = `
+                <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
+                <img src="${imgSrc}" alt="${selectedProduct}">
+                <h4>${selectedProduct}</h4>
+                <p><strong>Sacos:</strong> ${totalSacks}</p>
+                <p><strong>Peso:</strong> ${totalWeight} kg</p>
+                <p><strong>Precio:</strong> S/ ${price}</p>
+                <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
+            `;
+
+            previewList.appendChild(card);
+
+            // Limpiar totalizadores
+            weights = [];
+            price = 0;
+            document.getElementById("total-weight2").innerText = "0";
+            document.getElementById("total-sacks2").innerText = "0";
+            document.getElementById("subtotal2").innerText = "0";
+            document.getElementById("display-price2").innerText = "0";
+            document.getElementById("calc-display2").value = "";
+        }
+		
+		/**************************/
+		
     </script>
 </body>
 </html>
