@@ -244,7 +244,7 @@
                 <div class="tab" onclick="switchTab('total')">Sacos</div>
             </div>
 			<div id="peso" class="tab-content active">
-				<p>Ingrese los pesos de los sacos y el precio:</p>
+				<p>Ingrese el peso de cada saco y el precio:</p>
 				<input type="text" id="calc-display" readonly>
 				<div class="calculator">
 					<button onclick="appendNumber('7')">7</button>
@@ -270,7 +270,7 @@
 				<button onclick="confirmSelection()">CONFIRMAR</button>
 			</div>
 			<div id="total" class="tab-content">
-				<p>Ingrese los pesos de los sacos y el precio:</p>
+				<p>Ingrese la cantidad*, el peso total de los sacos y el precio:</p>
 				<input type="text" id="calc-display2" readonly>
 				<div class="calculator">
 					<button onclick="appendNumber2('7')">7</button>
@@ -308,9 +308,7 @@
 	<script>
         let productClickCount = {};
         let weights = [];
-        let weights2 = [];
         let selectedProduct = "";
-        let price = 0;
 		
         let productImages = {
             "PAPA CANCHAN": "papa_canchan.jpg",
@@ -370,13 +368,15 @@
         }
 
         function addPrice() {
-            price = parseFloat(document.getElementById("calc-display").value);
-            document.getElementById("display-price").innerText = price;
+            let value = parseFloat(document.getElementById("calc-display").value);
+            document.getElementById("display-price").innerText = value;
             updateTotals();
             document.getElementById("calc-display").value = "";
         }
 
-        function updateTotals() {
+        function updateTotals() {					
+			let price = document.getElementById("display-price").innerText;	
+			
             let totalWeight = weights.reduce((a, b) => a + b, 0);
             document.getElementById("total-weight").innerText = totalWeight;
             document.getElementById("total-sacks").innerText = weights.length;
@@ -402,7 +402,8 @@
 
         function confirmSelection() {
             let totalWeight = document.getElementById("total-weight").innerText;
-            let totalSacks = document.getElementById("total-sacks").innerText;
+            let totalSacks = document.getElementById("total-sacks").innerText;			
+			let price = document.getElementById("display-price").innerText;	
             let subtotal = document.getElementById("subtotal").innerText;
             let previewList = document.getElementById("preview-list");
 
@@ -429,7 +430,6 @@
 
             // Limpiar totalizadores
             weights = [];
-            price = 0;
             document.getElementById("total-weight").innerText = "0";
             document.getElementById("total-sacks").innerText = "0";
             document.getElementById("subtotal").innerText = "0";
@@ -480,7 +480,7 @@
             let subtotal = document.getElementById("subtotal2").innerText;
             let previewList = document.getElementById("preview-list");
 
-            if (!selectedProduct || totalWeight == "0" || totalSacks == "0" || price == 0) {
+            if (!selectedProduct || totalWeight == "0" || price == 0) {
                 alert("Debe ingresar un producto, peso y precio antes de confirmar.");
                 return;
             }
@@ -502,8 +502,6 @@
             previewList.appendChild(card);
 
             // Limpiar totalizadores
-            weights = [];
-            price = 0;
             document.getElementById("total-weight2").innerText = "0";
             document.getElementById("total-sacks2").innerText = "0";
             document.getElementById("subtotal2").innerText = "0";
