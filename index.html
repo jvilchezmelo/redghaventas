@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de Ventas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-ui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,12 +13,14 @@
             padding: 0;
             background-color: #f4f4f4;
         }
+
         .container {
             display: flex;
             gap: 20px;
             padding: 20px;
             justify-content: space-between;
         }
+
         .section {
             border: 2px solid #444;
             background-color: #fff;
@@ -25,12 +28,13 @@
             border-radius: 10px;
             box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
         }
-		
-		.tabs {
+
+        .tabs {
             display: flex;
             border-bottom: 2px solid #444;
             margin-bottom: 10px;
         }
+
         .tab {
             padding: 10px 20px;
             cursor: pointer;
@@ -39,17 +43,20 @@
             border-bottom: none;
             margin-right: 5px;
         }
-        .tab.active {
-            background: #fff;
-            font-weight: bold;
-        }
+
+            .tab.active {
+                background: #fff;
+                font-weight: bold;
+            }
+
         .tab-content {
             display: none;
         }
-        .tab-content.active {
-            display: block;
-        }
-		
+
+            .tab-content.active {
+                display: block;
+            }
+
         /* Modificación para que la calculadora se muestre en hasta 3 columnas */
         .calculator {
             background: #d4e157;
@@ -58,33 +65,34 @@
             width: 100%;
             text-align: center;
             display: grid;
-            grid-template-columns: repeat(3, 1fr); /* Máximo 3 columnas */
+            grid-template-columns: repeat(4, 1fr); /* Máximo 3 columnas */
             gap: 5px;
         }
 
-        .calculator button {
-            width: 100%;
-            padding: 15px;
-            background-color: #ff7043;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 18px;
-            margin: 5px;
-            cursor: pointer;
-        }
-		/* Modificación para que los productos se organicen en columnas de 2 en dispositivos grandes */
+            .calculator button {
+                width: 100%;
+                padding: 15px;
+                background-color: #ff7043;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                font-size: 18px;
+                margin: 5px;
+                cursor: pointer;
+            }
+        /* Modificación para que los productos se organicen en columnas de 2 en dispositivos grandes */
         .product-container {
             display: grid;
-			grid-template-columns: 1fr; /* En pantallas pequeñas, una sola columna */
+            grid-template-columns: repeat(2, 1fr); /* Máximo 3 columnas */
             gap: 10px;
             justify-content: center;
         }
+
         .product-button {
-            width: 150px; /* Ajusta según necesidad */
+            width: 166px; /* Ajusta según necesidad */
             height: 150px;
-            background-size: cover;
-            background-position: center;
+            /*background-size: cover;*/
+            /*background-position: center;*/
             border: none;
             font-weight: bold;
             color: black;
@@ -96,38 +104,68 @@
             cursor: pointer;
             border-radius: 10px;
         }
-        .product-button.selected {
-            background-color: #1565c0;
+
+            .product-button.selected {
+                background-color: #1565c0;
+            }
+
+        .papa-canchan-I {
+            background-image: url('papa_canchan_I.jpg');
         }
-        .papa-canchan { background-image: url('papa_canchan.jpg'); }
-        .papa-yungay { background-image: url('papa_yungay.jpg'); }
-        .papa-amarilla { background-image: url('papa_amarilla.jpg'); }
+
+        .papa-canchan-II {
+            background-image: url('papa_canchan_II.jpg');
+        }
+
+        .papa-yungay-I {
+            background-image: url('papa_yungay_I.jpg');
+        }
+
+        .papa-yungay-II {
+            background-image: url('papa_yungay_II.jpg');
+        }
+
+        .papa-amarilla-I {
+            background-image: url('papa_amarilla_I.jpg');
+        }
+
+        .papa-amarilla-II {
+            background-image: url('papa_amarilla_II.jpg');
+        }
+
         .totalizer {
             margin-top: 10px;
             font-weight: bold;
         }
+
         button {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
-            background-color: #43a047;
+            background-color: #336633;
             color: #fff;
             font-size: 16px;
             cursor: pointer;
             margin-top: 10px;
         }
-        ul {
+
+        #weight-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 3 columnas de igual ancho */
+            gap: 10px; /* Espaciado entre elementos */
             list-style: none;
             padding: 0;
         }
-        li {
-            background: #ffcc80;
-            padding: 10px;
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+
+            #weight-list li {
+                background-color: #f4a261;
+                padding: 10px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-radius: 5px;
+            }
+
         .remove-btn {
             background: red;
             color: white;
@@ -136,24 +174,27 @@
             cursor: pointer;
             border-radius: 5px;
         }
+
         #preview {
             min-height: 200px;
         }
-		#calc-display, #calc-display2 {
+
+        #calc-display, #calc-display2 {
             width: 99%;
             padding: 10px;
             font-size: 32px;
             font-weight: bold;
             text-align: right;
         }
-		#client-name {
+
+        #client-name {
             width: 90%;
             padding: 10px;
             font-size: 28px;
             text-align: left;
         }
 
-    
+
         .preview-container {
             display: flex;
             flex-wrap: wrap;
@@ -173,23 +214,23 @@
             position: relative;
         }
 
-        .product-card img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 5px;
-        }
+            .product-card img {
+                width: 100px;
+                /*height: 100px;
+                object-fit: cover;*/
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
 
-        .product-card h4 {
-            margin: 5px 0;
-            font-size: 16px;
-        }
+            .product-card h4 {
+                margin: 5px 0;
+                font-size: 16px;
+            }
 
-        .product-card p {
-            margin: 2px 0;
-            font-size: 14px;
-        }
+            .product-card p {
+                margin: 2px 0;
+                font-size: 14px;
+            }
 
         .delete-btn {
             position: absolute;
@@ -202,18 +243,31 @@
             cursor: pointer;
             border-radius: 50%;
         }
-		
-		/* Responsive Design */
+
+        .titulo-card {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 12px;
+            padding: 3px 6px;
+            border-radius: 3px;
+        }
+
+        /* Responsive Design */
         @media (max-width: 1024px) {
             .container {
                 flex-direction: column;
                 align-items: center;
             }
+
             .section, .section2, .section3 {
                 width: 90%;
                 margin-bottom: 10px;
             }
-			.product-container {
+
+            .product-container {
                 grid-template-columns: repeat(3, 1fr); /* En tablets, dos columnas */
             }
         }
@@ -224,6 +278,124 @@
             }
         }
     </style>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+        }
+
+        h2 {
+            background-color: #ffb74d;
+            color: #fff;
+            padding: 15px;
+            font-size: 28px;
+            margin: 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s ease-in-out;
+        }
+
+            button:hover {
+                transform: scale(1.05);
+            }
+
+        .calculator button {
+            border-radius: 10px;
+            background-color: #ff8a65;
+        }
+
+            .calculator button:hover {
+                background-color: #ff7043;
+            }
+
+        .product-button {
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.95);
+            transition: transform 0.2s ease;
+        }
+
+            .product-button:hover {
+                transform: scale(1.05);
+                filter: brightness(1);
+            }
+
+        .product-card {
+            border-radius: 15px;
+            background: #fff3e0;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s ease;
+        }
+
+            .product-card:hover {
+                transform: scale(1.03);
+            }
+
+        #client-name {
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .titulo-card {
+            font-size: 12px;
+            padding: 4px 8px;
+            background-color: #ffb74d;
+        }
+
+        .delete-btn {
+            background-color: #e53935;
+            border-radius: 50%;
+            padding: 6px 10px;
+        }
+
+        .preview-container {
+            margin-top: 10px;
+        }
+
+        /* Modal estilos */
+        #weightModal > div {
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                transform: scale(0.9);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .calculator button {
+            border-radius: 10px;
+            font-size: 22px;
+            padding: 20px;
+            transition: background-color 0.2s ease;
+        }
+
+            .calculator button:hover {
+                background-color: #fb8c00;
+            }
+    </style>
 </head>
 <body>
     <h2 style="text-align:center; background-color:#ffcc80; padding: 10px; margin:0;">Registro de Ventas</h2>
@@ -231,70 +403,81 @@
         <div class="section">
             <h3>Productos</h3>
             <div class="product-container">
-				<button class="product-button papa-canchan" onclick="selectProduct(this, 'PAPA CANCHAN')">PAPA CANCHAN</button>
-				<button class="product-button papa-yungay" onclick="selectProduct(this, 'PAPA YUNGAY')">PAPA YUNGAY</button>
-				<button class="product-button papa-amarilla" onclick="selectProduct(this, 'PAPA AMARILLA')">PAPA AMARILLA</button>
-			</div>
+                <button class="product-button papa-canchan-I" onclick="selectProduct(this, 'PAPA CANCHAN PRIMERA')"></button>
+                <button class="product-button papa-canchan-II" onclick="selectProduct(this, 'PAPA CANCHAN SEGUNDA')"></button>
+                <button class="product-button papa-yungay-I" onclick="selectProduct(this, 'PAPA YUNGAY PRIMERA')"></button>
+                <button class="product-button papa-yungay-II" onclick="selectProduct(this, 'PAPA YUNGAY SEGUNDA')"></button>
+                <button class="product-button papa-amarilla-I" onclick="selectProduct(this, 'PAPA AMARILLA PRIMERA')"></button>
+                <button class="product-button papa-amarilla-II" onclick="selectProduct(this, 'PAPA AMARILLA SEGUNDA')"></button>
+            </div>
         </div>
-        
+
         <div class="section">
             <h3>Registro</h3>
-			<div class="tabs">
+            <div class="tabs">
                 <div class="tab active" onclick="switchTab('peso')">Peso</div>
-                <div class="tab" onclick="switchTab('total')">Sacos</div>
+                <div class="tab" onclick="switchTab('sacos')">Sacos</div>
             </div>
-			<div id="peso" class="tab-content active">
-				<p>Ingrese el peso de cada saco y el precio:</p>
-				<input type="text" id="calc-display" readonly>
-				<div class="calculator">
-					<button onclick="appendNumber('7')">7</button>
-					<button onclick="appendNumber('8')">8</button>
-					<button onclick="appendNumber('9')">9</button>
-					<button onclick="appendNumber('4')">4</button>
-					<button onclick="appendNumber('5')">5</button>
-					<button onclick="appendNumber('6')">6</button>
-					<button onclick="appendNumber('1')">1</button>
-					<button onclick="appendNumber('2')">2</button>
-					<button onclick="appendNumber('3')">3</button>
-					<button onclick="appendNumber('0')">0</button>
-					<button onclick="appendNumber('.')">.</button>
-					<button onclick="clearCalculator()">C</button>
-					<button onclick="addWeight()">Agregar Peso</button>
-					<button onclick="addPrice()">Agregar Precio</button>
-				</div>
-				<ul id="weight-list"></ul>
-				<p class="totalizer">Cantidad sacos: <span id="total-sacks">0</span></p>
-				<p class="totalizer">Total Peso: <span id="total-weight">0</span> kg</p>
-				<p class="totalizer">Precio: <span id="display-price">0</span></p>
-				<p class="totalizer">Subtotal: <span id="subtotal">0</span></p>
-				<button onclick="confirmSelection()">CONFIRMAR</button>
-			</div>
-			<div id="total" class="tab-content">
-				<p>Ingrese la cantidad*, el peso total de los sacos y el precio:</p>
-				<input type="text" id="calc-display2" readonly>
-				<div class="calculator">
-					<button onclick="appendNumber2('7')">7</button>
-					<button onclick="appendNumber2('8')">8</button>
-					<button onclick="appendNumber2('9')">9</button>
-					<button onclick="appendNumber2('4')">4</button>
-					<button onclick="appendNumber2('5')">5</button>
-					<button onclick="appendNumber2('6')">6</button>
-					<button onclick="appendNumber2('1')">1</button>
-					<button onclick="appendNumber2('2')">2</button>
-					<button onclick="appendNumber2('3')">3</button>
-					<button onclick="appendNumber2('0')">0</button>
-					<button onclick="appendNumber2('.')">.</button>
-					<button onclick="clearCalculator2()">C</button>
-					<button onclick="addQuantity()">Agregar Cantidad</button>
-					<button onclick="addWeight2()">Agregar Peso</button>
-					<button onclick="addPrice2()">Agregar Precio</button>
-				</div>
-				<p class="totalizer">Cantidad sacos: <span id="total-sacks2">0</span></p>
-				<p class="totalizer">Total Peso: <span id="total-weight2">0</span> kg</p>
-				<p class="totalizer">Precio: <span id="display-price2">0</span></p>
-				<p class="totalizer">Subtotal: <span id="subtotal2">0</span></p>
-				<button onclick="confirmSelection2()">CONFIRMAR</button>
-			</div>
+            <div id="peso" class="tab-content active">
+                <p>Ingrese el peso de cada saco y el precio:</p>
+                <input type="text" id="calc-display" readonly>
+                <div class="calculator">
+                    <button onclick="appendNumber('7')">7</button>
+                    <button onclick="appendNumber('8')">8</button>
+                    <button onclick="appendNumber('9')">9</button>
+                    <button class="btn-clear" onclick="clearCalculator()">C</button>
+                    <button onclick="appendNumber('4')">4</button>
+                    <button onclick="appendNumber('5')">5</button>
+                    <button onclick="appendNumber('6')">6</button>
+                    <button class="btn-delete" onclick="deleteLast()">⌫</button>
+                    <button onclick="appendNumber('1')">1</button>
+                    <button onclick="appendNumber('2')">2</button>
+                    <button onclick="appendNumber('3')">3</button>
+                    <button onclick="appendNumber('-')">-</button>
+                    <button onclick="appendNumber('0')">0</button>
+                    <button onclick="appendNumber('.')">.</button>
+                    <button onclick="calculate()">=</button>
+                    <button onclick="appendNumber('+')">+</button>
+                    <button onclick="addWeight()" style="background-color:#336633"><b>+ Peso</b></button>
+                    <button onclick="addPrice()" style="background-color:#336633"><b>+ Precio</b></button>
+                </div>
+                <ul id="weight-list"></ul>
+                <p class="totalizer">Cantidad sacos: <span id="total-sacks">0</span></p>
+                <p class="totalizer">Total Peso: <span id="total-weight">0</span> kg</p>
+                <p class="totalizer">Precio: <span id="display-price">0</span></p>
+                <p class="totalizer">Subtotal: <span id="subtotal">0</span></p>
+                <button onclick="confirmSelection()">CONFIRMAR</button>
+            </div>
+            <div id="sacos" class="tab-content">
+                <p>Ingrese la cantidad*, el peso total de los sacos y el precio:</p>
+                <input type="text" id="calc-display2" readonly>
+                <div class="calculator">
+                    <button onclick="appendNumber2('7')">7</button>
+                    <button onclick="appendNumber2('8')">8</button>
+                    <button onclick="appendNumber2('9')">9</button>
+                    <button class="btn-clear" onclick="clearCalculator2()">C</button>
+                    <button onclick="appendNumber2('4')">4</button>
+                    <button onclick="appendNumber2('5')">5</button>
+                    <button onclick="appendNumber2('6')">6</button>
+                    <button class="btn-delete" onclick="deleteLast2()">⌫</button>
+                    <button onclick="appendNumber2('1')">1</button>
+                    <button onclick="appendNumber2('2')">2</button>
+                    <button onclick="appendNumber2('3')">3</button>
+                    <button onclick="appendNumber2('-')">-</button>
+                    <button onclick="appendNumber2('0')">0</button>
+                    <button onclick="appendNumber2('.')">.</button>
+                    <button onclick="calculate2()">=</button>
+                    <button onclick="appendNumber2('+')">+</button>
+                    <button onclick="addQuantity()" style="background-color:#336633"><b>+ Cantidad*</b></button>
+                    <button onclick="addWeight2()" style="background-color:#336633"><b>+ Peso</b></button>
+                    <button onclick="addPrice2()" style="background-color:#336633"><b>+ Precio</b></button>
+                </div>
+                <p class="totalizer">Cantidad sacos: <span id="total-sacks2">0</span></p>
+                <p class="totalizer">Total Peso: <span id="total-weight2">0</span> kg</p>
+                <p class="totalizer">Precio: <span id="display-price2">0</span></p>
+                <p class="totalizer">Subtotal: <span id="subtotal2">0</span></p>
+                <button onclick="confirmSelection2()">CONFIRMAR</button>
+            </div>
         </div>
 
         <div class="section">
@@ -302,60 +485,95 @@
             <p>Nombre Cliente:</p>
             <input type="text" id="client-name" placeholder="Buscar cliente...">
             <div class="preview-container" id="preview-list"></div>
+            <div style="margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                <button onclick="saveSale()" style="background-color: #4caf50; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-save"></i> Grabar Venta
+                </button>
+                <button onclick="printPDF()" style="background-color: #2196f3; display: flex; align-items: center; gap: 8px;">
+                    <i class="fas fa-file-pdf"></i> Imprimir PDF
+                </button>
+                <button onclick="sendWhatsApp()" style="background-color: #25d366; display: flex; align-items: center; gap: 8px;">
+                    <i class="fab fa-whatsapp"></i> Enviar WhatsApp
+                </button>
+            </div>
         </div>
     </div>
-	
-	<script>
+    <div id="weightModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:400px; width:90%; position:relative; box-shadow:0 0 10px rgba(0,0,0,0.3); text-align:center;">
+            <h3 style="margin-top:0;">📦 Detalle de Pesos</h3>
+            <ul id="modal-weight-list" style="list-style: none;padding: 0;margin: 0;display: grid;grid-template-columns: repeat(4, 1fr);gap: 10px;"></ul>
+            <button onclick="closeModal()" style="margin-top:15px; background-color:#ff7043; padding:10px 20px;">
+                <i class="fas fa-times"></i> Cerrar
+            </button>
+        </div>
+    </div>
+    <script>
         let productClickCount = {};
         let weights = [];
         let selectedProduct = "";
-		
+        let selectedTab = "Peso";
+
         let productImages = {
-            "PAPA CANCHAN": "papa_canchan.jpg",
-            "PAPA YUNGAY": "papa_yungay.jpg",
-            "PAPA AMARILLA": "papa_amarilla.jpg"
+            "PAPA CANCHAN PRIMERA": "papa_canchan_I.jpg",
+            "PAPA CANCHAN SEGUNDA": "papa_canchan_II.jpg",
+            "PAPA YUNGAY PRIMERA": "papa_yungay_I.jpg",
+            "PAPA YUNGAY SEGUNDA": "papa_yungay_II.jpg",
+            "PAPA AMARILLA PRIMERA": "papa_amarilla_I.jpg",
+            "PAPA AMARILLA SEGUNDA": "papa_amarilla_II.jpg"
         };
-		
-		function switchTab(tabName) {
+
+        function switchTab(tabName) {
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active');
             document.getElementById(tabName).classList.add('active');
-        }
-		
-		function clearCalculator() {
-            document.getElementById("calc-display").value = "";
-        }
-		
-		function clearCalculator2() {
-            document.getElementById("calc-display2").value = "";
+            selectedTab = tabName;
         }
 
-        function selectProduct(button, productName) {
+        function clearCalculator() {
+            document.getElementById("calc-display").value = "";
+        }
+
+        function deleteLast() {
+            var obj = document.getElementById("calc-display");
+            let value = parseFloat(obj.value);
+            obj.value = obj.value.slice(0, -1);
+        }
+
+        function calculate() {
+            var obj = document.getElementById("calc-display");
+            try {
+                obj.value = eval(obj.value);
+            } catch {
+                obj.value = "Error";
+            }
+        }
+
+        /*function selectProduct(button, productName) {
             document.querySelectorAll('.product-button').forEach(btn => {
                 let originalName = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
                 btn.textContent = `${originalName}`;
             });
-            
+
             if (!productClickCount[productName]) {
                 productClickCount[productName] = 0;
             }
-            
+
             productClickCount[productName] = (productClickCount[productName] % 3) + 1;
             let quality = ["I", "II", "III"][productClickCount[productName] - 1];
-            
-			
+
+
             selectedProduct = `${productName} - Calidad ${quality}`;
             button.textContent = selectedProduct;
             button.dataset.quality = quality;
+        }*/
+
+        function selectProduct(button, productName) {
+            selectedProduct = `${productName}`;
         }
 
         function appendNumber(num) {
             document.getElementById("calc-display").value += num;
-        }
-
-        function appendNumber2(num) {
-            document.getElementById("calc-display2").value += num;
         }
 
         function addWeight() {
@@ -374,9 +592,9 @@
             document.getElementById("calc-display").value = "";
         }
 
-        function updateTotals() {					
-			let price = document.getElementById("display-price").innerText;	
-			
+        function updateTotals() {
+            let price = document.getElementById("display-price").innerText;
+
             let totalWeight = weights.reduce((a, b) => a + b, 0);
             document.getElementById("total-weight").innerText = totalWeight;
             document.getElementById("total-sacks").innerText = weights.length;
@@ -402,8 +620,8 @@
 
         function confirmSelection() {
             let totalWeight = document.getElementById("total-weight").innerText;
-            let totalSacks = document.getElementById("total-sacks").innerText;			
-			let price = document.getElementById("display-price").innerText;	
+            let totalSacks = document.getElementById("total-sacks").innerText;
+            let price = document.getElementById("display-price").innerText;
             let subtotal = document.getElementById("subtotal").innerText;
             let previewList = document.getElementById("preview-list");
 
@@ -416,15 +634,21 @@
 
             let card = document.createElement("div");
             card.classList.add("product-card");
+            card.dataset.weights = JSON.stringify(weights);
             card.innerHTML = `
-                <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
-                <img src="${imgSrc}" alt="${selectedProduct}">
-                <h4>${selectedProduct}</h4>
-                <p><strong>Sacos:</strong> ${totalSacks}</p>
-                <p><strong>Peso:</strong> ${totalWeight} kg</p>
-                <p><strong>Precio:</strong> S/ ${price}</p>
-                <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
-            `;
+                        <span class="titulo-card">${selectedTab}</span>
+                        <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
+                        <img src="${imgSrc}" alt="${selectedProduct}">
+                        <h4>${selectedProduct}</h4>
+                        <p><strong>Sacos:</strong> ${totalSacks}</p>
+                        <p><strong>Peso:</strong> ${totalWeight} kg</p>
+                        <p><strong>Precio:</strong> S/ ${price}</p>
+                        <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
+                    `;
+            card.addEventListener('click', function () {
+                let savedWeights = JSON.parse(this.dataset.weights);
+                showWeights(savedWeights);
+            });
 
             previewList.appendChild(card);
 
@@ -439,8 +663,59 @@
             let weightList = document.getElementById("weight-list");
             if (weightList) weightList.innerHTML = "";
         }
-		
-		/**************************/
+
+        function showWeights(weightArray) {
+            let modal = document.getElementById("weightModal");
+            let list = document.getElementById("modal-weight-list");
+            list.innerHTML = "";
+
+            if (weightArray.length === 0) {
+                list.innerHTML = "<li>Sin pesos registrados.</li>";
+            } else {
+                weightArray.forEach((w, i) => {
+                    let li = document.createElement("li");
+                    li.innerHTML = `<i class="fas fa-weight-hanging" style="color:#336633;"></i><strong>${w} kg</strong>`;
+                    li.style.background = "#f0f0f0";
+                    li.style.padding = "8px";
+                    li.style.borderRadius = "5px";
+                    li.style.display = "flex";
+                    li.style.alignItems = "center";
+                    li.style.gap = "6px";
+                    list.appendChild(li);
+                });
+            }
+
+            modal.style.display = "flex";
+        }
+
+        function closeModal() {
+            document.getElementById("weightModal").style.display = "none";
+        }
+
+        /**************************/
+
+        function clearCalculator2() {
+            document.getElementById("calc-display2").value = "";
+        }
+
+        function deleteLast2() {
+            var obj = document.getElementById("calc-display2");
+            let value = parseFloat(obj.value);
+            obj.value = obj.value.slice(0, -1);
+        }
+
+        function calculate2() {
+            var obj = document.getElementById("calc-display2");
+            try {
+                obj.value = eval(obj.value);
+            } catch {
+                obj.value = "Error";
+            }
+        }
+
+        function appendNumber2(num) {
+            document.getElementById("calc-display2").value += num;
+        }
 
         function addQuantity() {
             let value = parseInt(document.getElementById("calc-display2").value);
@@ -460,23 +735,23 @@
 
         function addPrice2() {
             let value = parseFloat(document.getElementById("calc-display2").value);
-			if (!isNaN(value)) {
-				document.getElementById("display-price2").innerText = value;
+            if (!isNaN(value)) {
+                document.getElementById("display-price2").innerText = value;
             }
             updateTotals2();
             document.getElementById("calc-display2").value = "";
         }
 
-        function updateTotals2() {			
-			let totalWeight = document.getElementById("total-weight2").innerText;
-			let price = document.getElementById("display-price2").innerText;			
+        function updateTotals2() {
+            let totalWeight = document.getElementById("total-weight2").innerText;
+            let price = document.getElementById("display-price2").innerText;
             document.getElementById("subtotal2").innerText = (totalWeight * price).toFixed(2);
         }
 
         function confirmSelection2() {
             let totalWeight = document.getElementById("total-weight2").innerText;
             let totalSacks = document.getElementById("total-sacks2").innerText;
-			let price = document.getElementById("display-price2").innerText;	
+            let price = document.getElementById("display-price2").innerText;
             let subtotal = document.getElementById("subtotal2").innerText;
             let previewList = document.getElementById("preview-list");
 
@@ -490,14 +765,15 @@
             let card = document.createElement("div");
             card.classList.add("product-card");
             card.innerHTML = `
-                <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
-                <img src="${imgSrc}" alt="${selectedProduct}">
-                <h4>${selectedProduct}</h4>
-                <p><strong>Sacos:</strong> ${totalSacks}</p>
-                <p><strong>Peso:</strong> ${totalWeight} kg</p>
-                <p><strong>Precio:</strong> S/ ${price}</p>
-                <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
-            `;
+                        <span class="titulo-card">${selectedTab}</span>
+                        <button class='delete-btn' onclick='this.parentElement.remove()'>X</button>
+                        <img src="${imgSrc}" alt="${selectedProduct}">
+                        <h4>${selectedProduct}</h4>
+                        <p><strong>Sacos:</strong> ${totalSacks}</p>
+                        <p><strong>Peso:</strong> ${totalWeight} kg</p>
+                        <p><strong>Precio:</strong> S/ ${price}</p>
+                        <p><strong>Subtotal:</strong> S/ ${subtotal}</p>
+                    `;
 
             previewList.appendChild(card);
 
@@ -508,9 +784,27 @@
             document.getElementById("display-price2").innerText = "0";
             document.getElementById("calc-display2").value = "";
         }
-		
-		/**************************/
-		
+
+        /**************************/
+
     </script>
+    <script>
+        function saveSale() {
+            alert("Venta grabada correctamente.");
+        }
+
+        function printPDF() {
+            alert("Generando PDF...");
+            // Aquí puedes integrar jsPDF o similar
+        }
+
+        function sendWhatsApp() {
+            let client = document.getElementById("client-name").value;
+            let message = `Hola ${client}, gracias por su compra.`;
+            let url = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+    </script>
+
 </body>
 </html>
