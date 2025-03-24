@@ -151,7 +151,7 @@
 
         #weight-list {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 3 columnas de igual ancho */
+            grid-template-columns: repeat(3, 1fr); /* 3 columnas de igual ancho */
             gap: 10px; /* Espaciado entre elementos */
             list-style: none;
             padding: 0;
@@ -324,8 +324,8 @@
             }
 
         .product-button {
-            background-size: cover;
-            background-position: center;
+            /*background-size: cover;
+            background-position: center;*/
             filter: brightness(0.95);
             transition: transform 0.2s ease;
         }
@@ -368,7 +368,7 @@
             margin-top: 10px;
         }
 
-        /* Modal estilos */
+         Modal estilos 
         #weightModal > div {
             animation: fadeIn 0.3s ease;
         }
@@ -438,9 +438,9 @@
                     <button onclick="appendNumber('.')">.</button>
                     <button onclick="calculate()">=</button>
                     <button onclick="appendNumber('+')">+</button>
-                    <button onclick="addWeight()" style="background-color:#336633"><b>+ Peso</b></button>
-                    <button onclick="addPrice()" style="background-color:#336633"><b>+ Precio</b></button>
                 </div>
+                <button onclick="addWeight()" style="background-color:#336633"><b>+ Peso</b></button>
+                <button onclick="addPrice()" style="background-color:#336633"><b>+ Precio</b></button>
                 <ul id="weight-list"></ul>
                 <p class="totalizer">Cantidad sacos: <span id="total-sacks">0</span></p>
                 <p class="totalizer">Total Peso: <span id="total-weight">0</span> kg</p>
@@ -468,10 +468,10 @@
                     <button onclick="appendNumber2('.')">.</button>
                     <button onclick="calculate2()">=</button>
                     <button onclick="appendNumber2('+')">+</button>
-                    <button onclick="addQuantity()" style="background-color:#336633"><b>+ Cantidad*</b></button>
-                    <button onclick="addWeight2()" style="background-color:#336633"><b>+ Peso</b></button>
-                    <button onclick="addPrice2()" style="background-color:#336633"><b>+ Precio</b></button>
                 </div>
+                <button onclick="addQuantity()" style="background-color:#336633"><b>+ Cant.</b></button>
+                <button onclick="addWeight2()" style="background-color:#336633"><b>+ Peso</b></button>
+                <button onclick="addPrice2()" style="background-color:#336633"><b>+ Precio</b></button>
                 <p class="totalizer">Cantidad sacos: <span id="total-sacks2">0</span></p>
                 <p class="totalizer">Total Peso: <span id="total-weight2">0</span> kg</p>
                 <p class="totalizer">Precio: <span id="display-price2">0</span></p>
@@ -501,7 +501,7 @@
     <div id="weightModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); justify-content:center; align-items:center; z-index:1000;">
         <div style="background:white; padding:20px; border-radius:10px; max-width:400px; width:90%; position:relative; box-shadow:0 0 10px rgba(0,0,0,0.3); text-align:center;">
             <h3 style="margin-top:0;">📦 Detalle de Pesos</h3>
-            <ul id="modal-weight-list" style="list-style: none;padding: 0;margin: 0;display: grid;grid-template-columns: repeat(4, 1fr);gap: 10px;"></ul>
+            <ul id="modal-weight-list" style="list-style: none;padding: 0;margin: 0;display: grid;grid-template-columns: repeat(3, 1fr);gap: 10px;"></ul>
             <button onclick="closeModal()" style="margin-top:15px; background-color:#ff7043; padding:10px 20px;">
                 <i class="fas fa-times"></i> Cerrar
             </button>
